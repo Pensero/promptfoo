@@ -130,6 +130,58 @@ describe('createTogetherAiProvider', () => {
       );
     });
 
+    it('should extract showThinking to top-level config', () => {
+      const options = {
+        config: {
+          config: {
+            showThinking: false,
+            temperature: 0.7,
+          },
+        },
+      };
+
+      createTogetherAiProvider('togetherai:chat:model-name', options);
+
+      expect(OpenAiChatCompletionProvider).toHaveBeenCalledWith(
+        'model-name',
+        expect.objectContaining({
+          config: expect.objectContaining({
+            apiBaseUrl: 'https://api.together.xyz/v1',
+            apiKeyEnvar: 'TOGETHER_API_KEY',
+            showThinking: false,
+            passthrough: expect.objectContaining({
+              temperature: 0.7,
+            }),
+          }),
+        }),
+      );
+    });
+
+    it('should extract response_format to top-level config', () => {
+      const options = {
+        config: {
+          config: {
+            response_format: { type: 'json_schema', json_schema: { name: 'test' } },
+            temperature: 0.7,
+          },
+        },
+      };
+
+      createTogetherAiProvider('togetherai:chat:model-name', options);
+
+      expect(OpenAiChatCompletionProvider).toHaveBeenCalledWith(
+        'model-name',
+        expect.objectContaining({
+          config: expect.objectContaining({
+            response_format: { type: 'json_schema', json_schema: { name: 'test' } },
+            passthrough: expect.objectContaining({
+              temperature: 0.7,
+            }),
+          }),
+        }),
+      );
+    });
+
     it('should handle passthrough correctly', () => {
       const options = {
         config: {
