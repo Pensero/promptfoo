@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- fix(providers): improve TogetherAI json_schema format conversion to handle OpenAI-formatted schemas (#TBD)
+- fix(providers): correctly handle reasoning field in OpenAI-compatible models like gpt-oss-20b, extracting both reasoning and content instead of only reasoning (#TBD)
+- fix(providers): add gpt-oss to reasoning model detection for consistent behavior with temperature disabling (#TBD)
+
 ### Dependencies
 
 - chore(deps): update Biome version with force-include patterns (`!!`) for faster local linting/CI by @sklein12 (#TBD)
